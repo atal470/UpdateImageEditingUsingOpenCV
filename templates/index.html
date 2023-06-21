@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Editing</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url('static/White.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+    }
+
+    .form-label {
+      color: blue;
+      font-weight: bold;
+    }
+
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
+
+    /* New styles for navbar links */
+    .navbar-nav .nav-item {
+      text-align: center;
+    }
+
+    .navbar-nav .nav-item a {
+      font-weight: bold;
+      font-style: italic;
+
+    }
+    .nav-link {
+      color: blue;
+      text-decoration: none;
+    }
+    .moved-text {
+      position: relative;
+      left: 120px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><b><i class="moved-text">About</i></b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/"><b><i>Home</i></b></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+
+  {% for message in messages %}
+  <li class="{{category}}">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>Aww yeah, you successfully.</p>{{message|safe}}
+    </div>
+  </li>
+  {% endfor %}
+
+  {% endif %}
+  {% endwith %}
+  {% block body %}{% endblock %}
+  <div class="container mt-5">
+    <h1 class="text-center mb-4"><i>Image Editing Application</i></h1>
+    <form action="/edit" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Select File From Here👇👇🏾</label>
+        <input class="form-control" type="file" name="file" id="formFile">
+      </div>
+      <div class="mb-3">
+        <div class="form-floating">
+          <select name="operation" class="form-select" id="floatingSelect">
+            <option selected>Open this select menu</option>
+            <option value="cpng">Convert to PNG</option>
+            <option value="cjpg">Convert to JPG</option>
+            <option value="cwebp">Convert to WEB</option>
+            <option value="cgray">Convert to GRAY</option>
+          </select>
+          <label for="floatingSelect">Select From These Options</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
